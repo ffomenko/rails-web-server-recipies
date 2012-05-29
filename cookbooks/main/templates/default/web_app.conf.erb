@@ -1,0 +1,24 @@
+<VirtualHost *:80>
+  ServerName <%= @params[:server_name] %>
+  DocumentRoot <%= @params[:docroot] %>
+
+  RailsEnv <%= @params[:rails_env] %>
+
+  SSLEngine on
+  SSLOptions +StrictRequire
+  SSLCertificateFile /etc/ssl/certs/web1.dev1.liferisks.rms.com.crt
+  SSLCertificateKeyFile /etc/ssl/private/web1.dev1.liferisks.rms.com.key
+
+  <Directory <%= @params[:docroot] %>>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+  RewriteEngine On
+  RewriteCond %{SERVER_PORT} !^443$
+  RewriteRule ^/(.*) https://%{HTTP_HOST}/$1 [NC,R,L]
+</VirtualHost>
