@@ -17,7 +17,7 @@ cookbook_file '/etc/ssl/private/web1.dev1.liferisks.rms.com.key' do
 end
 
 web_app "liferisks" do
-  docroot "/var/www/liferisks"
-  server_name "web1.dev1.liferisks.rms.com"
-  rails_env "development"
+  docroot "/var/www/Test/current"
+  server_name "web1.prod1.liferisksv2.rms.com"
+  rails_env "production"
 end
