@@ -16,8 +16,12 @@ cookbook_file '/etc/ssl/private/web1.dev1.liferisks.rms.com.key' do
   mode 0600
 end
 
+directory node[:app_root] do
+  owner node[:deploy_user]
+end
+
 web_app "liferisks" do
-  docroot "/var/www/Test/current"
-  server_name "web1.prod1.liferisksv2.rms.com"
-  rails_env "production"
+  docroot "#{node[:app_root]}/current/public"
+  server_name node[:server_name]
+  rails_env node[:rails_env]
 end

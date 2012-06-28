@@ -1,0 +1,8 @@
+{
+    "recipes": [ "main" ],
+    "rails_env" : "production",
+    "deploy_user" : "deploy",
+    "server_name" : "web1.prod1.liferisksv2.rms.com",
+    "app_root" : "/var/www/Test"
+}
+
