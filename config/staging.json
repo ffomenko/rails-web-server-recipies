@@ -1,6 +1,6 @@
 {
     "recipes": [ "main" ],
-    "rails_env" : "productionvpc",
+    "rails_env" : "stagingvpc",
     "deploy_user" : "deploy",
     "server_name" : "web1.prod1.liferisksv2.rms.com",
     "app_root" : "/var/www/Test"
