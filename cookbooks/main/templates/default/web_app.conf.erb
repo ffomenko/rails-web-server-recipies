@@ -15,6 +15,13 @@
     Order allow,deny
     Allow from all
   </Directory>
+
+  <Directory <%= "#{@params[:docroot]}/Help" %>>
+    RewriteEngine on
+    RewriteCond %{HTTP:Cookie} !help=([a-zA-Z0-9]+)
+    RewriteRule ^(.*)$ /users/sign_in [L,R]
+  </Directory>
+
 </VirtualHost>
 
 <VirtualHost *:80>
