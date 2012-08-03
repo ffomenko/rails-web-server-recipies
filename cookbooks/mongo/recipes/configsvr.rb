@@ -1,0 +1,28 @@
+require_recipe 'mongo'
+
+template '/etc/mongodb.conf' do
+  source 'mongodb.conf'
+  owner 'root'
+  group 'root'
+  mode 0644
+end
+
+template '/etc/init/mongodbconfigsvr.conf' do
+  source 'upstart.conf'
+  owner 'root'
+  group 'root'
+  mode 0644
+end
+
+directory "/data" do
+  owner "mongodb"
+  group "mongodb"
+  mode "0755"
+  action :create
+end
+
+mount "/data" do
+  device "/dev/sdf"
+  fstype "ext4"
+end
+

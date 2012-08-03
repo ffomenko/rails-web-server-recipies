@@ -1,0 +1,9 @@
+{
+    "name": "mongo-data",
+    "default_attributes": { },
+    "override_attributes": { },
+    "json_class": "Chef::Role",
+    "description": "This is just a test role, no big deal.",
+    "chef_type": "role",
+    "run_list": [ "recipe[test]" ]
+}
