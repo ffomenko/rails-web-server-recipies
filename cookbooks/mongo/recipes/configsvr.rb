@@ -1,14 +1,14 @@
 require_recipe 'mongo'
 
-template '/etc/mongodb.conf' do
-  source 'mongodb.conf'
+template '/etc/mongodb_db.conf' do
+  source 'mongodb_configsvr.conf'
   owner 'root'
   group 'root'
   mode 0644
 end
 
 template '/etc/init/mongodbconfigsvr.conf' do
-  source 'upstart.conf'
+  source 'upstart_configsvr.conf'
   owner 'root'
   group 'root'
   mode 0644

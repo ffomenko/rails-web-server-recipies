@@ -8,20 +8,25 @@ template '/etc/mongos.conf' do
 end
 
 template '/etc/init/mongos.conf' do
-  source 'upstart.conf'
+  source 'upstart_mongos.conf'
   owner 'root'
   group 'root'
   mode 0644
 end
 
-cookbook_file "/tmp/setup.js" do
-  source "setup.js"
+service "mongods" do
+  provider Chef::Provider::Service::Upstart
+  action :start
+end
+
+cookbook_file "/tmp/setup-shard.js" do
+  source "setup-shard.js"
   mode "0644"
 end
 
 execute "setup" do
   cwd "/tmp/"
-  command "mongo admin setup.js"
+  command "mongo localhost:27018/admin setup-shard.js"
   action :run
 end
 

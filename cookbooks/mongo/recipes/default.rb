@@ -1,15 +1,8 @@
-require_recipe 'build-essential'
-
-mongo_url  = 'http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.2.tgz'
 mongo_tar  = 'mongodb-linux-x86_64-2.0.2.tgz'
 mongo_dir  = 'mongodb-linux-x86_64-2.0.2'
 
-package "wget" do
-  action :install
-end
-
 remote_file "/tmp/#{mongo_tar}" do
-  source "#{mongo_url}"
+  source 'http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.2.tgz'
   mode 0644
   action :create_if_missing
 end
@@ -24,7 +17,7 @@ end
   mongoimport  mongorestore  mongos  mongosniff  mongostat  mongotop).each do |file|
 
   execute "copy #{file}" do
-    cwd "/tmp/#{mongo_dir}"
+    cwd "/tmp/#{mongo_dir}/bin"
     command "cp #{file} /usr/bin/"
     creates "/usr/bin/#{file}"
     action :run
@@ -46,9 +39,16 @@ directory "/var/log/mongodb" do
   action :create
 end
 
+directory "/home/ubuntu" do
+  owner "mongodb"
+  group "mongodb"
+end
+
 #Copy key file
 cookbook_file "/home/ubuntu/keyfile.txt" do
   source "keyfile.txt"
   mode "0600"
+  owner "mongodb"
+  group "mongodb"
 end
 
