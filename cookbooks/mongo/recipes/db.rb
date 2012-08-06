@@ -1,5 +1,5 @@
 require_recipe 'mongo'
-#require_recipe 'raid'
+require_recipe 'raid'
 
 template '/etc/mongodb.conf' do
   source 'mongodb_db.conf'
@@ -22,12 +22,12 @@ cookbook_file "/tmp/setup-db.js" do
 end
 
 ## For debugging
-directory "/data" do
-  owner "mongodb"
-  group "mongodb"
-  mode "0755"
-  action :create
-end
+#directory "/data" do
+#  owner "mongodb"
+#  group "mongodb"
+#  mode "0755"
+#  action :create
+#end
 
 service "mongodb" do
   provider Chef::Provider::Service::Upstart
@@ -38,5 +38,12 @@ execute "setup mongodb" do
   cwd "/tmp"
   command "mongo localhost:27018/admin setup-db.js"
   action :run
+  only_if { sleep(60); true}
+end
+
+execute "add mongo user" do
+  command "mongo localhost:27018/admin --eval 'db.addUser(\"liferisks\", \"Tw1ckenham\");'"
+  action :run
+  only_if { sleep(60); true}
 end
 

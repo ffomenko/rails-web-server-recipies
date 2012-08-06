@@ -28,5 +28,6 @@ execute "setup" do
   cwd "/tmp/"
   command "mongo localhost:27018/admin setup-shard.js"
   action :run
+  only_if { sleep(60); true}
 end
 
