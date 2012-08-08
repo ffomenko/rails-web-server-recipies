@@ -16,6 +16,14 @@ cookbook_file '/etc/ssl/private/web1.dev1.liferisks.rms.com.key' do
   mode 0600
 end
 
+user node[:deploy_user] do
+  system true
+end
+
+group node[:deploy_user] do
+  members [node[:deploy_user]]
+end
+
 directory node[:app_root] do
   owner node[:deploy_user]
 end
@@ -25,3 +33,12 @@ web_app "liferisks" do
   server_name node[:server_name]
   rails_env node[:rails_env]
 end
+
+template '/etc/logrotate.d/passenger' do
+  source 'passenger'
+  owner 'root'
+  group 'root'
+  mode 0644
+end
+
+

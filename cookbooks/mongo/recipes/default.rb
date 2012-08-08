@@ -39,6 +39,14 @@ directory "/var/log/mongodb" do
   action :create
 end
 
+#logrotate
+template '/etc/logrotate.d/mongodb' do
+  source 'mongo_logrotate'
+  owner 'root'
+  group 'root'
+  mode 0644
+end
+
 directory "/home/ubuntu" do
   owner "mongodb"
   group "mongodb"
@@ -51,4 +59,5 @@ cookbook_file "/home/ubuntu/keyfile.txt" do
   owner "mongodb"
   group "mongodb"
 end
+
 

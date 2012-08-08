@@ -1,0 +1,11 @@
+<%= node[:app_root] %>/shared/log/*.log {
+  daily
+  missingok
+  rotate 30
+  compress
+  delaycompress
+  sharedscripts
+  postrotate
+    touch <%= node[:app_root] %>/current/tmp/restart.txt
+  endscript
+}

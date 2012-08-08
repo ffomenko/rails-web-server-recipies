@@ -1,0 +1,13 @@
+{
+    "name":"web",
+    "default_attributes":{
+        "deploy_user":"deploy",
+        "server_name":"web1.prod1.liferisksv2.rms.com",
+        "app_root":"/var/www/Test",
+        "rails_env" : "production"
+    },
+    "override_attributes":{ },
+    "json_class":"Chef::Role",
+    "chef_type":"role",
+    "run_list":[ "recipe[main]" ]
+}

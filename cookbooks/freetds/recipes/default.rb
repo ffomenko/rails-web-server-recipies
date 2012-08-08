@@ -1,6 +1,6 @@
 require_recipe 'build-essential'
 
-freetds_url  = 'http://ibiblio.org/pub/Linux/ALPHA/freetds/stable/freetds-0.91.tar.gz'
+freetds_url  = 'ftp://ftp.freetds.org/pub/freetds/stable/freetds-0.91.tar.gz'
 freetds_tar  = 'freetds-0.91.tar.gz'
 freetds_dir  = 'freetds-0.91'
 freetds_conf = '/usr/local/etc/freetds.conf'
@@ -14,13 +14,14 @@ execute "ldconfig" do
   action :nothing
 end
 
-remote_file "/tmp/#{freetds_tar}" do
-  source "#{freetds_url}"
-  mode 0644
-  action :create_if_missing
+execute "download freetds" do
+  command "wget #{freetds_url}"
+  cwd "/tmp"
+  user "root"
+  creates "/tmp/#{freetds_tar}"
 end
 
-execute "tar -xf #{freetds_tar}" do
+execute "tar -zxf #{freetds_tar}" do
   cwd "/tmp"
   user "root"
   creates freetds_dir
