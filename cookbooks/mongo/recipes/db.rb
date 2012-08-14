@@ -38,12 +38,12 @@ execute "setup mongodb" do
   cwd "/tmp"
   command "mongo localhost:27018/admin setup-db.js"
   action :run
-  only_if { sleep(60); true}
+  only_if { sleep(90); true}
 end
 
 execute "add mongo user" do
   command "mongo localhost:27018/admin --eval 'db.addUser(\"liferisks\", \"Tw1ckenham\");'"
   action :run
-  only_if { sleep(60); true}
+  only_if { sleep(90); true}
 end
 
