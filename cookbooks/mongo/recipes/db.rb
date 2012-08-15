@@ -38,7 +38,7 @@ execute "setup mongodb" do
   cwd "/tmp"
   command "mongo localhost:27018/admin setup-db.js"
   action :run
-  only_if { sleep(90); true}
+  only_if { sleep(180); true}
 end
 
 execute "add mongo user" do
